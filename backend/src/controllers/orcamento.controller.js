@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { gerarPdf } = require('../services/pdf.service');
+const { gerarRecibo } = require('../services/recibo.service');
 
 const arquivoOrcamentos = path.join(__dirname, '../database/orcamentos.json');
 
@@ -20,6 +21,7 @@ function salvarOrcamentos(orcamentos) {
 function criarOrcamento(req, res) {
   const {
     cliente,
+    documentoCliente,
     telefone,
     endereco,
     validade,
@@ -53,12 +55,11 @@ function criarOrcamento(req, res) {
   const novoOrcamento = {
     id: Date.now(),
     cliente,
+    documentoCliente: documentoCliente || '',
     telefone,
     endereco,
     validade: validade || '7 dias',
-    observacoes:
-      observacoes ||
-      '',
+    observacoes: observacoes || '',
     servicos: servicosTratados,
     total,
     status: 'Pendente',
@@ -90,6 +91,21 @@ function gerarPdfOrcamento(req, res) {
   }
 
   gerarPdf(orcamento, res);
+}
+
+function gerarReciboPdf(req, res) {
+  const { id } = req.params;
+
+  const orcamentos = lerOrcamentos();
+  const orcamento = orcamentos.find(item => item.id === Number(id));
+
+  if (!orcamento) {
+    return res.status(404).json({
+      mensagem: 'Orçamento não encontrado.'
+    });
+  }
+
+  gerarRecibo(orcamento, res);
 }
 
 function excluirOrcamento(req, res) {
@@ -142,6 +158,7 @@ module.exports = {
   criarOrcamento,
   listarOrcamentos,
   gerarPdfOrcamento,
+  gerarReciboPdf,
   excluirOrcamento,
   atualizarObservacoes
 };

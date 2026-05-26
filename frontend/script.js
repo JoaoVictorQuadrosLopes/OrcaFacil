@@ -73,6 +73,7 @@ document.getElementById('formOrcamento').addEventListener('submit', async functi
   event.preventDefault();
 
   const cliente = document.getElementById('cliente').value.trim();
+  const documentoCliente = document.getElementById('documentoCliente').value.trim();
   const telefone = document.getElementById('telefone').value.trim();
   const endereco = document.getElementById('endereco').value.trim();
   const validade = document.getElementById('validade').value.trim();
@@ -85,6 +86,7 @@ document.getElementById('formOrcamento').addEventListener('submit', async functi
 
   const dados = {
     cliente,
+    documentoCliente,
     telefone,
     endereco,
     validade,
@@ -145,6 +147,7 @@ async function carregarOrcamentos() {
       div.innerHTML = `
         <strong>${orcamento.cliente}</strong>
 
+        <p>CPF/CNPJ: ${orcamento.documentoCliente || 'Não informado'}</p>
         <p>Data: ${orcamento.data}</p>
         <p>Validade: ${orcamento.validade || '7 dias'}</p>
         <p>Status: ${orcamento.status || 'Pendente'}</p>
@@ -155,6 +158,10 @@ async function carregarOrcamentos() {
         <div class="acoes">
           <a class="btn-link btn-pdf" href="${API_URL}/${orcamento.id}/pdf" target="_blank">
             Baixar PDF
+          </a>
+
+          <a class="btn-link btn-recibo" href="${API_URL}/${orcamento.id}/recibo" target="_blank">
+            Recibo / Pré-nota
           </a>
 
           <button class="btn-salvar" onclick="salvarObservacoes(${orcamento.id})">

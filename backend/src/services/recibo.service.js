@@ -9,11 +9,11 @@ function formatarMoeda(valor) {
   });
 }
 
-function linha(doc, y, cor = '#e5e7eb') {
+function linha(doc, y) {
   doc
     .moveTo(45, y)
     .lineTo(550, y)
-    .strokeColor(cor)
+    .strokeColor('#e5e7eb')
     .lineWidth(1)
     .stroke();
 }
@@ -52,9 +52,22 @@ function gerarRodape(doc) {
     .fillColor('#6b7280')
     .fontSize(8)
     .text(
+      'Este documento é um recibo/pré-nota de serviço e não substitui a Nota Fiscal de Serviço Eletrônica oficial.',
+      45,
+      760,
+      {
+        width: 505,
+        align: 'center'
+      }
+    );
+
+  doc
+    .fillColor('#6b7280')
+    .fontSize(8)
+    .text(
       'JGL - Instalações Elétricas e Ar-Condicionado | CNPJ: 36.359.331/0001-60',
       45,
-      765,
+      774,
       {
         width: 505,
         align: 'center'
@@ -80,10 +93,10 @@ function gerarCabecalhoTabela(doc, y) {
       align: 'right'
     });
 
-  linha(doc, y + 16, '#d1d5db');
+  linha(doc, y + 16);
 }
 
-function gerarPdf(orcamento, res) {
+function gerarRecibo(orcamento, res) {
   const doc = new PDFDocument({
     margin: 45,
     size: 'A4'
@@ -92,7 +105,7 @@ function gerarPdf(orcamento, res) {
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader(
     'Content-Disposition',
-    `attachment; filename=orcamento-${orcamento.id}.pdf`
+    `attachment; filename=recibo-pre-nota-${orcamento.id}.pdf`
   );
 
   doc.pipe(res);
@@ -101,48 +114,46 @@ function gerarPdf(orcamento, res) {
 
   doc
     .fillColor('#111827')
-    .fontSize(24)
-    .text('ORÇAMENTO', 45, 145);
+    .fontSize(22)
+    .text('RECIBO / PRÉ-NOTA DE SERVIÇO', 45, 145);
 
   doc
     .fillColor('#6b7280')
     .fontSize(9)
-    .text(`Nº ${orcamento.id}`, 45, 177)
-    .text(`Data: ${orcamento.data}`, 45, 193)
-    .text(`Validade: ${orcamento.validade || '7 dias'}`, 45, 209)
-    .text(`Status: ${orcamento.status || 'Pendente'}`, 45, 225);
+    .text(`Referente ao orçamento nº ${orcamento.id}`, 45, 177)
+    .text(`Data de emissão: ${orcamento.data}`, 45, 193);
 
   doc
     .fillColor('#111827')
-    .fontSize(10)
-    .text('Cliente', 340, 177);
+    .fontSize(11)
+    .text('Tomador do serviço', 45, 235);
+
+  linha(doc, 255);
 
   doc
     .fillColor('#374151')
     .fontSize(9)
-    .text(orcamento.cliente, 340, 197, {
-      width: 210
+    .text(`Nome/Razão social: ${orcamento.cliente}`, 45, 275, {
+      width: 505
     })
-    .text(`CPF/CNPJ: ${orcamento.documentoCliente || 'Não informado'}`, 340, 213, {
-      width: 210
+    .text(`CPF/CNPJ: ${orcamento.documentoCliente || 'Não informado'}`, 45, 292, {
+      width: 505
     })
-    .text(orcamento.telefone, 340, 229, {
-      width: 210
+    .text(`Telefone: ${orcamento.telefone}`, 45, 309, {
+      width: 505
     })
-    .text(orcamento.endereco, 340, 245, {
-      width: 210
+    .text(`Endereço: ${orcamento.endereco}`, 45, 326, {
+      width: 505
     });
-
-  linha(doc, 285);
 
   doc
     .fillColor('#111827')
-    .fontSize(12)
-    .text('Itens do orçamento', 45, 315);
+    .fontSize(11)
+    .text('Serviços prestados', 45, 375);
 
-  gerarCabecalhoTabela(doc, 345);
+  gerarCabecalhoTabela(doc, 405);
 
-  let y = 375;
+  let y = 435;
 
   orcamento.servicos.forEach((servico, index) => {
     const quantidade = Number(servico.quantidade) || 1;
@@ -156,11 +167,10 @@ function gerarPdf(orcamento, res) {
 
       doc
         .fillColor('#111827')
-        .fontSize(12)
-        .text('Itens do orçamento', 45, 145);
+        .fontSize(11)
+        .text('Serviços prestados', 45, 145);
 
       gerarCabecalhoTabela(doc, 175);
-
       y = 205;
     }
 
@@ -196,44 +206,54 @@ function gerarPdf(orcamento, res) {
       });
 
     y += 28;
-
-    linha(doc, y - 8, '#f0f0f0');
+    linha(doc, y - 8);
   });
 
-  y += 20;
+  y += 25;
 
-  if (y > 675) {
+  if (y > 660) {
     gerarRodape(doc);
     doc.addPage();
     gerarCabecalho(doc);
-    y = 155;
+    y = 150;
   }
-
-  linha(doc, y);
 
   doc
     .fillColor('#111827')
     .fontSize(10)
-    .text('Total', 365, y + 20);
+    .text('Valor total recebido / a receber', 315, y);
 
   doc
     .fillColor('#111827')
     .fontSize(18)
-    .text(formatarMoeda(orcamento.total), 405, y + 15, {
+    .text(formatarMoeda(orcamento.total), 405, y + 20, {
       width: 145,
       align: 'right'
     });
 
-  y += 70;
+  y += 80;
+
+  doc
+    .fillColor('#111827')
+    .fontSize(11)
+    .text('Declaração', 45, y);
+
+  doc
+    .fillColor('#374151')
+    .fontSize(9)
+    .text(
+      `Declaramos para os devidos fins que os serviços descritos neste documento foram orçados/prestados pela empresa JGL - Instalações Elétricas e Ar-Condicionado, inscrita no CNPJ 36.359.331/0001-60, ao tomador identificado acima.`,
+      45,
+      y + 25,
+      {
+        width: 505,
+        lineGap: 3
+      }
+    );
+
+  y += 95;
 
   if (orcamento.observacoes && orcamento.observacoes.trim() !== '') {
-    if (y > 650) {
-      gerarRodape(doc);
-      doc.addPage();
-      gerarCabecalho(doc);
-      y = 150;
-    }
-
     doc
       .fillColor('#111827')
       .fontSize(11)
@@ -247,7 +267,7 @@ function gerarPdf(orcamento, res) {
         lineGap: 3
       });
 
-    y += 95;
+    y += 85;
   }
 
   if (y > 690) {
@@ -282,7 +302,7 @@ function gerarPdf(orcamento, res) {
   doc
     .fillColor('#6b7280')
     .fontSize(8)
-    .text('Cliente', 345, y + 45, {
+    .text('Tomador do serviço', 345, y + 45, {
       width: 180,
       align: 'center'
     });
@@ -293,5 +313,5 @@ function gerarPdf(orcamento, res) {
 }
 
 module.exports = {
-  gerarPdf
+  gerarRecibo
 };

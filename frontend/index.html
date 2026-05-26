@@ -9,28 +9,40 @@
 <body>
 
   <header class="topo">
-    <div>
-      <h1>JGL Orçamentos</h1>
-      <p>Gerador de orçamentos para serviços elétricos e ar-condicionado</p>
+    <div class="topo-conteudo">
+      <div>
+        <h1>JGL Orçamentos</h1>
+        <p>Gerador de orçamentos, recibos e pré-notas de serviço</p>
+      </div>
     </div>
   </header>
 
   <main class="container">
     <section class="card formulario-card">
-      <h2>Novo orçamento</h2>
+      <div class="titulo-card">
+        <div>
+          <h2>Novo orçamento</h2>
+          <p>Preencha os dados do cliente e os itens do serviço.</p>
+        </div>
+      </div>
 
       <form id="formOrcamento">
+        <h3>Dados do cliente</h3>
+
         <div class="grid-3">
           <input type="text" id="cliente" placeholder="Nome do cliente" required>
+          <input type="text" id="documentoCliente" placeholder="CPF/CNPJ do cliente">
           <input type="text" id="telefone" placeholder="Telefone" required>
-          <input type="text" id="validade" placeholder="Validade. Ex: 7 dias">
         </div>
 
-        <input type="text" id="endereco" placeholder="Endereço do cliente" required>
+        <div class="grid-2">
+          <input type="text" id="validade" placeholder="Validade. Ex: 7 dias">
+          <input type="text" id="endereco" placeholder="Endereço do cliente" required>
+        </div>
 
         <textarea
           id="observacoes"
-          placeholder=""
+          placeholder="Observações do orçamento. Ex: forma de pagamento, prazo de execução, garantia, condições do serviço..."
         ></textarea>
 
         <h3>Itens do orçamento</h3>
@@ -45,7 +57,7 @@
         <ul id="listaServicos"></ul>
 
         <div class="total-box">
-          <span>Total</span>
+          <span>Total do orçamento</span>
           <strong>R$ <span id="total">0.00</span></strong>
         </div>
 
@@ -54,7 +66,13 @@
     </section>
 
     <section class="card">
-      <h2>Orçamentos gerados</h2>
+      <div class="titulo-card">
+        <div>
+          <h2>Orçamentos gerados</h2>
+          <p>Baixe o orçamento, gere recibo/pré-nota ou edite observações.</p>
+        </div>
+      </div>
+
       <div id="listaOrcamentos"></div>
     </section>
   </main>

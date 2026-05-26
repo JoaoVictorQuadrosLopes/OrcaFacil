@@ -44,7 +44,7 @@ body {
 
 .card h2 {
   color: #0b3d91;
-  margin-bottom: 18px;
+  margin-bottom: 4px;
 }
 
 .card h3 {
@@ -52,9 +52,21 @@ body {
   margin: 18px 0 10px;
 }
 
+.titulo-card p {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
 .grid-3 {
   display: grid;
-  grid-template-columns: 1fr 1fr 0.7fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr;
   gap: 10px;
 }
 
@@ -200,6 +212,11 @@ li {
   background: #0b3d91;
 }
 
+.btn-recibo {
+  background: #f59f00;
+  color: #111827;
+}
+
 .btn-salvar {
   background: #198754;
 }
@@ -214,6 +231,7 @@ li {
   }
 
   .grid-3,
+  .grid-2,
   .servico-form {
     grid-template-columns: 1fr;
   }
