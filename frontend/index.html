@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JGL Orçamentos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topo">
+    <div>
+      <h1>JGL Orçamentos</h1>
+      <p>Gerador de orçamentos para serviços elétricos e ar-condicionado</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card formulario-card">
+      <h2>Novo orçamento</h2>
+
+      <form id="formOrcamento">
+        <div class="grid-3">
+          <input type="text" id="cliente" placeholder="Nome do cliente" required>
+          <input type="text" id="telefone" placeholder="Telefone" required>
+          <input type="text" id="validade" placeholder="Validade. Ex: 7 dias">
+        </div>
+
+        <input type="text" id="endereco" placeholder="Endereço do cliente" required>
+
+        <textarea
+          id="observacoes"
+          placeholder=""
+        ></textarea>
+
+        <h3>Itens do orçamento</h3>
+
+        <div class="servico-form">
+          <input type="text" id="descricaoServico" placeholder="Descrição do serviço ou produto">
+          <input type="number" id="quantidadeServico" placeholder="Qtd." min="1" value="1">
+          <input type="number" id="valorServico" placeholder="Valor unitário" min="0" step="0.01">
+          <button type="button" onclick="adicionarServico()">Adicionar</button>
+        </div>
+
+        <ul id="listaServicos"></ul>
+
+        <div class="total-box">
+          <span>Total</span>
+          <strong>R$ <span id="total">0.00</span></strong>
+        </div>
+
+        <button type="submit" class="btn-principal">Gerar Orçamento</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Orçamentos gerados</h2>
+      <div id="listaOrcamentos"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "backend-jgl-orcamentos",
+  "version": "1.0.0",
+  "description": "Backend para sistema de geração de orçamentos",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "João Victor Lopes",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "pdfkit": "^0.15.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
