@@ -3,80 +3,223 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JGL Orçamentos</title>
+  <title>OrçaFácil</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header class="topo">
     <div class="topo-conteudo">
-      <div>
-        <h1>JGL Orçamentos</h1>
-        <p>Gerador de orçamentos, recibos e pré-notas de serviço</p>
+      <div class="identidade">
+        <div class="logo-empresa" id="logoEmpresa">
+          <img id="logoEmpresaImagem" alt="">
+          <span id="logoEmpresaIniciais">OF</span>
+        </div>
+        <div class="identidade-texto">
+          <span class="produto">OrçaFácil</span>
+          <h1 id="nomeEmpresa">Configure sua empresa</h1>
+          <p id="atividadeEmpresa">Orçamentos profissionais em poucos minutos</p>
+        </div>
       </div>
+      <button type="button" class="btn-configuracao" id="abrirConfiguracoes">
+        Configurações
+      </button>
     </div>
   </header>
 
   <main class="container">
-    <section class="card formulario-card">
-      <div class="titulo-card">
+    <section class="painel formulario-painel">
+      <div class="titulo-painel">
         <div>
+          <span class="etiqueta">Criação</span>
           <h2>Novo orçamento</h2>
-          <p>Preencha os dados do cliente e os itens do serviço.</p>
+          <p>Informe o cliente e monte os itens da proposta.</p>
         </div>
       </div>
 
       <form id="formOrcamento">
-        <h3>Dados do cliente</h3>
+        <fieldset>
+          <legend>Dados do cliente</legend>
+          <div class="grid-3">
+            <label>
+              Nome do cliente
+              <input type="text" id="cliente" required>
+            </label>
+            <label>
+              CPF ou CNPJ
+              <input type="text" id="documentoCliente">
+            </label>
+            <label>
+              Telefone
+              <input type="text" id="telefone" required>
+            </label>
+          </div>
 
-        <div class="grid-3">
-          <input type="text" id="cliente" placeholder="Nome do cliente" required>
-          <input type="text" id="documentoCliente" placeholder="CPF/CNPJ do cliente">
-          <input type="text" id="telefone" placeholder="Telefone" required>
-        </div>
+          <div class="grid-2">
+            <label>
+              Validade
+              <input type="text" id="validade" placeholder="Ex.: 7 dias">
+            </label>
+            <label>
+              Endereço
+              <input type="text" id="endereco" required>
+            </label>
+          </div>
 
-        <div class="grid-2">
-          <input type="text" id="validade" placeholder="Validade. Ex: 7 dias">
-          <input type="text" id="endereco" placeholder="Endereço do cliente" required>
-        </div>
+          <label>
+            Condições e observações
+            <textarea
+              id="observacoes"
+              placeholder="Forma de pagamento, prazo, garantia e outras condições"
+            ></textarea>
+          </label>
+        </fieldset>
 
-        <textarea
-          id="observacoes"
-          placeholder="Observações do orçamento. Ex: forma de pagamento, prazo de execução, garantia, condições do serviço..."
-        ></textarea>
+        <fieldset>
+          <legend>Itens do orçamento</legend>
+          <div class="servico-form">
+            <label>
+              Produto ou serviço
+              <input type="text" id="descricaoServico">
+            </label>
+            <label>
+              Quantidade
+              <input type="number" id="quantidadeServico" min="1" value="1">
+            </label>
+            <label>
+              Valor unitário
+              <input type="number" id="valorServico" min="0" step="0.01">
+            </label>
+            <button type="button" class="btn-adicionar" id="adicionarServico">
+              Adicionar item
+            </button>
+          </div>
 
-        <h3>Itens do orçamento</h3>
+          <ul id="listaServicos" class="lista-servicos"></ul>
 
-        <div class="servico-form">
-          <input type="text" id="descricaoServico" placeholder="Descrição do serviço ou produto">
-          <input type="number" id="quantidadeServico" placeholder="Qtd." min="1" value="1">
-          <input type="number" id="valorServico" placeholder="Valor unitário" min="0" step="0.01">
-          <button type="button" onclick="adicionarServico()">Adicionar</button>
-        </div>
+          <div class="total-box">
+            <span>Total do orçamento</span>
+            <strong id="total">R$ 0,00</strong>
+          </div>
+        </fieldset>
 
-        <ul id="listaServicos"></ul>
-
-        <div class="total-box">
-          <span>Total do orçamento</span>
-          <strong>R$ <span id="total">0.00</span></strong>
-        </div>
-
-        <button type="submit" class="btn-principal">Gerar Orçamento</button>
+        <button type="submit" class="btn-principal">Salvar orçamento</button>
       </form>
     </section>
 
-    <section class="card">
-      <div class="titulo-card">
+    <section class="painel historico-painel">
+      <div class="titulo-painel titulo-historico">
         <div>
-          <h2>Orçamentos gerados</h2>
-          <p>Baixe o orçamento, gere recibo/pré-nota ou edite observações.</p>
+          <span class="etiqueta">Histórico</span>
+          <h2>Orçamentos</h2>
+          <p id="resumoOrcamentos">Carregando registros...</p>
         </div>
       </div>
-
-      <div id="listaOrcamentos"></div>
+      <div id="listaOrcamentos" class="lista-orcamentos"></div>
     </section>
   </main>
 
+  <dialog id="empresaDialog" class="modal-empresa">
+    <form id="formEmpresa" method="dialog">
+      <div class="modal-cabecalho">
+        <div>
+          <span class="produto">OrçaFácil</span>
+          <h2 id="tituloConfiguracao">Dados da empresa</h2>
+          <p>Estas informações aparecerão nos seus documentos.</p>
+        </div>
+        <button type="button" class="btn-fechar" id="fecharConfiguracoes" aria-label="Fechar">
+          ×
+        </button>
+      </div>
+
+      <div class="modal-conteudo">
+        <div class="grid-2-igual">
+          <label>
+            Nome da empresa ou profissional *
+            <input type="text" id="empresaNomeFantasia" required maxlength="100">
+          </label>
+          <label>
+            Razão social
+            <input type="text" id="empresaRazaoSocial" maxlength="140">
+          </label>
+        </div>
+
+        <div class="grid-3">
+          <label>
+            CPF ou CNPJ
+            <input type="text" id="empresaDocumento" maxlength="30">
+          </label>
+          <label>
+            Telefone
+            <input type="text" id="empresaTelefone" maxlength="30">
+          </label>
+          <label>
+            E-mail
+            <input type="email" id="empresaEmail" maxlength="120">
+          </label>
+        </div>
+
+        <label>
+          Atividade ou segmento
+          <input
+            type="text"
+            id="empresaAtividade"
+            placeholder="Ex.: Construção civil, manutenção, consultoria"
+            maxlength="140"
+          >
+        </label>
+
+        <label>
+          Endereço
+          <input type="text" id="empresaEndereco" maxlength="220">
+        </label>
+
+        <div class="grid-2-igual">
+          <label>
+            Dados para pagamento
+            <textarea
+              id="empresaPagamento"
+              placeholder="PIX, banco ou condições padrão"
+              maxlength="300"
+            ></textarea>
+          </label>
+          <label>
+            Rodapé dos documentos
+            <textarea
+              id="empresaRodape"
+              placeholder="Mensagem de agradecimento ou informações legais"
+              maxlength="240"
+            ></textarea>
+          </label>
+        </div>
+
+        <div class="personalizacao">
+          <label class="campo-logo">
+            Logo da empresa
+            <input type="file" id="empresaLogo" accept="image/png,image/jpeg">
+            <span>PNG ou JPG, até 2 MB</span>
+          </label>
+          <label class="campo-cor">
+            Cor principal
+            <input type="color" id="empresaCor" value="#176b5b">
+          </label>
+          <button type="button" class="btn-secundario" id="removerLogo">
+            Remover logo
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-acoes">
+        <button type="button" class="btn-secundario" id="cancelarConfiguracoes">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-principal btn-salvar-empresa">
+          Salvar empresa
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="notificacao" class="notificacao" role="status" aria-live="polite"></div>
   <script src="script.js"></script>
 </body>
 </html>

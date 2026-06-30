@@ -1,1 +1,188 @@
-[]
+[
+  {
+    "id": 1779881535681,
+    "cliente": "Guagua",
+    "documentoCliente": "--",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "",
+    "servicos": [
+      {
+        "descricao": "Troca de lampada",
+        "quantidade": 1,
+        "valor": 100,
+        "subtotal": 100
+      }
+    ],
+    "total": 100,
+    "status": "Pendente",
+    "data": "27/05/2026"
+  },
+  {
+    "id": 1780086364669,
+    "cliente": "Fernando Fagundes",
+    "documentoCliente": "--",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "Orçamento de materiais - pagamento à vista",
+    "servicos": [
+      {
+        "descricao": "Material Ar-condicionado",
+        "quantidade": 1,
+        "valor": 10600,
+        "subtotal": 10600
+      }
+    ],
+    "total": 10600,
+    "status": "Pendente",
+    "data": "29/05/2026"
+  },
+  {
+    "id": 1780086470898,
+    "cliente": "Fernando Fagundes",
+    "documentoCliente": "--",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "Mão de obra para instalação dos ares",
+    "servicos": [
+      {
+        "descricao": "Instalação aparelhos ar-condicionado (7 aparelhos)",
+        "quantidade": 1,
+        "valor": 10000,
+        "subtotal": 10000
+      }
+    ],
+    "total": 10000,
+    "status": "Pendente",
+    "data": "29/05/2026"
+  },
+  {
+    "id": 1780086600485,
+    "cliente": "Fernando Fagundes",
+    "documentoCliente": "--",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "Materiais para o padrão trifasico 200 Amper - Pagamento à vista",
+    "servicos": [
+      {
+        "descricao": "Materiais para montagem do padrão",
+        "quantidade": 1,
+        "valor": 31000,
+        "subtotal": 31000
+      }
+    ],
+    "total": 31000,
+    "status": "Pendente",
+    "data": "29/05/2026"
+  },
+  {
+    "id": 1780086670783,
+    "cliente": "Fernando Fagundes",
+    "documentoCliente": "--",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "Mão de obra para montagem dos padrões",
+    "servicos": [
+      {
+        "descricao": "Mão de obra da montagem do padrão",
+        "quantidade": 1,
+        "valor": 1800,
+        "subtotal": 1800
+      }
+    ],
+    "total": 1800,
+    "status": "Pendente",
+    "data": "29/05/2026"
+  },
+  {
+    "id": 1780336049477,
+    "cliente": "Fernando Fagundes",
+    "documentoCliente": "--",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "Mão de obra para execução da parte eletrica e infraestrutura dos ares.\nParte eletrica inclui: Fiação da obra, montagem do padrão e aterramento SPDA\nInstalação/infra dos ares = instalação dos aparelhos com a infra completa.\n\nMETODO PAGAMENTO: DIVIDIDO EM 3X\n\nENTRADA / 50% DA OBRA /100% DA OBRA\n\n\n\nOBS: Não inclui parte de alvenaria.\n\n\n",
+    "servicos": [
+      {
+        "descricao": "Mão de obra para execução completa",
+        "quantidade": 1,
+        "valor": 70000,
+        "subtotal": 70000
+      }
+    ],
+    "total": 70000,
+    "status": "Pendente",
+    "data": "01/06/2026"
+  },
+  {
+    "id": 1780336234233,
+    "cliente": "Fernando Fagundes",
+    "documentoCliente": "--",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "Conrugado para entrada (do poste até a caixa de disjuntor 01)",
+    "servicos": [
+      {
+        "descricao": "Materiais para alimentação",
+        "quantidade": 1,
+        "valor": 2600,
+        "subtotal": 2600
+      }
+    ],
+    "total": 2600,
+    "status": "Pendente",
+    "data": "01/06/2026"
+  },
+  {
+    "id": 1780346969681,
+    "cliente": "Marcelo P dos Santos LTDA",
+    "documentoCliente": "11.586.628/0001-37",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "Materiais para espera da alimentação de energia e mão de obra da mesma.\nMateriais: Conrugados de 90mm (3 polegadas) e conrugados 3/4",
+    "servicos": [
+      {
+        "descricao": "Materiais",
+        "quantidade": 1,
+        "valor": 1200,
+        "subtotal": 1200
+      },
+      {
+        "descricao": "Mão de obra",
+        "quantidade": 1,
+        "valor": 400,
+        "subtotal": 400
+      }
+    ],
+    "total": 1600,
+    "status": "Pendente",
+    "data": "01/06/2026"
+  },
+  {
+    "id": 1781011227727,
+    "cliente": "Marcelo P dos Santos LTDA",
+    "documentoCliente": "11.586.628/0001-37",
+    "telefone": "--",
+    "endereco": "--",
+    "validade": "7",
+    "observacoes": "Materiais para realização do \"predio\" \n\n\nmetodo pagamento: à vista",
+    "servicos": [
+      {
+        "descricao": "Materiais",
+        "quantidade": 1,
+        "valor": 83000,
+        "subtotal": 83000
+      }
+    ],
+    "total": 83000,
+    "status": "Pendente",
+    "data": "09/06/2026"
+  }
+]

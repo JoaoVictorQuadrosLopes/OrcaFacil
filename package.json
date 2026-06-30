@@ -1,0 +1,48 @@
+{
+  "name": "orcafacil",
+  "version": "1.0.0",
+  "description": "Aplicativo desktop para criação e gestão de orçamentos",
+  "main": "electron/main.js",
+  "private": true,
+  "scripts": {
+    "desktop": "electron .",
+    "build:win": "electron-builder --win nsis",
+    "start": "npm --prefix backend start"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "pdfkit": "^0.15.0"
+  },
+  "build": {
+    "appId": "br.com.orcafacil.desktop",
+    "productName": "OrçaFácil",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "build/icon.png",
+      "frontend/**/*",
+      "backend/src/**/*",
+      "backend/package.json"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
+    "win": {
+      "icon": "build/icon.png",
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  }
+}

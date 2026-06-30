@@ -2,19 +2,36 @@ const fs = require('fs');
 const path = require('path');
 const { gerarPdf } = require('../services/pdf.service');
 const { gerarRecibo } = require('../services/recibo.service');
+const { lerEmpresa } = require('../services/empresa.service');
 
-const arquivoOrcamentos = path.join(__dirname, '../database/orcamentos.json');
+const dataDir =
+  process.env.ORCAFACIL_DATA_DIR ||
+  process.env.JGL_DATA_DIR ||
+  path.join(__dirname, '../database');
+const arquivoOrcamentos = path.join(dataDir, 'orcamentos.json');
+
+function garantirArquivoOrcamentos() {
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, {
+      recursive: true
+    });
+  }
+
+  if (!fs.existsSync(arquivoOrcamentos)) {
+    fs.writeFileSync(arquivoOrcamentos, JSON.stringify([]), 'utf8');
+  }
+}
 
 function lerOrcamentos() {
-  if (!fs.existsSync(arquivoOrcamentos)) {
-    fs.writeFileSync(arquivoOrcamentos, JSON.stringify([]));
-  }
+  garantirArquivoOrcamentos();
 
   const dados = fs.readFileSync(arquivoOrcamentos);
   return JSON.parse(dados);
 }
 
 function salvarOrcamentos(orcamentos) {
+  garantirArquivoOrcamentos();
+
   fs.writeFileSync(arquivoOrcamentos, JSON.stringify(orcamentos, null, 2));
 }
 
@@ -90,7 +107,7 @@ function gerarPdfOrcamento(req, res) {
     });
   }
 
-  gerarPdf(orcamento, res);
+  gerarPdf(orcamento, lerEmpresa(), res);
 }
 
 function gerarReciboPdf(req, res) {
@@ -105,7 +122,7 @@ function gerarReciboPdf(req, res) {
     });
   }
 
-  gerarRecibo(orcamento, res);
+  gerarRecibo(orcamento, lerEmpresa(), res);
 }
 
 function excluirOrcamento(req, res) {
